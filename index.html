@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Simple Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <!-- ITO ANG NIGHT MODE BUTTON - NASA LOOB NG .container, NASA LABAS NG .calculator -->
+       <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙</button>
+
+
+        <!-- ITO ANG CALCULATOR DIV - NASA LOOB DIN NG .container -->
+        <div class="calculator" id="calculator">
+            <form>
+                <!-- Display input field -->
+                <div class="display">
+                    <input type="text" name="display" class="calculator-display" readonly>
+                </div>
+                
+                <!-- UNANG ROW ng buttons (AC, DE, ., /) -->
+                <div class="button-row">
+                    <input type="button" value="AC" onclick="display.value = ''" class="button operator-btn ac-btn">
+                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)" class="button operator-btn de-btn">
+                    <input type="button" value="." onclick="display.value += '.'" class="button operator-btn dot-btn">
+                    <input type="button" value="/" onclick="display.value += '/'" class="button operator-btn divide-btn">
+                </div>
+
+                <!-- PANGALAWANG ROW ng buttons (7, 8, 9, *) -->
+                <div class="button-row">
+                    <input type="button" value="7" onclick="display.value += '7'" class="button num-btn">
+                    <input type="button" value="8" onclick="display.value += '8'" class="button num-btn">
+                    <input type="button" value="9" onclick="display.value += '9'" class="button num-btn">
+                    <input type="button" value="*" onclick="display.value += '*'" class="button operator-btn">
+                </div>
+
+                <!-- PANGATLONG ROW ng buttons (4, 5, 6, -) -->
+                <div class="button-row">
+                    <input type="button" value="4" onclick="display.value += '4'" class="button num-btn">
+                    <input type="button" value="5" onclick="display.value += '5'" class="button num-btn">
+                    <input type="button" value="6" onclick="display.value += '6'" class="button num-btn">
+                    <input type="button" value="-" onclick="display.value += '-'" class="button operator-btn">
+                </div>
+
+                <!-- PANG-APAT NA ROW ng buttons (1, 2, 3, +) -->
+                <div class="button-row">
+                    <input type="button" value="1" onclick="display.value += '1'" class="button num-btn">
+                    <input type="button" value="2" onclick="display.value += '2'" class="button num-btn">
+                    <input type="button" value="3" onclick="display.value += '3'" class="button num-btn">
+                    <input type="button" value="+" onclick="display.value += '+'" class="button operator-btn">
+                </div>
+
+                <!-- PANGLIMANG ROW ng buttons (00, 0, =) -->
+                <div class="button-row">
+                    <input type="button" value="00" onclick="display.value += '00'" class="button num-btn">
+                    <input type="button" value="0" onclick="display.value += '0'" class="button num-btn">
+                    <input type="button" value="=" onclick="display.value = eval(display.value)" class="button equal-btn">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script para sa calculator functionality at dark mode toggle -->
+    <script>
+        let display = document.forms[0].display;
+
+        function toggleDarkMode() {
+            const calculator = document.getElementById('calculator');
+            // I-toggle ang 'dark-mode' class sa calculator
+            calculator.classList.toggle('dark-mode');
+            if (body.classList.contains("dark-mode")) {
+      button.textContent = "☀️"; // Sun when night mode is active
+    } else {
+      button.textContent = "🌙"; // Moon when in light mode
+    }
+           
+
+            // I-toggle din ang 'dark-mode' class sa body para sa background
+            document.body.classList.toggle('dark-mode-body');
+
+            // I-save ang preference ng user sa localStorage
+            if (calculator.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check localStorage sa pag-load ng page
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.getElementById('calculator').classList.add('dark-mode');
+                document.body.classList.add('dark-mode-body');
+            }
+        });
+    </script>
+</body>
+</html>
